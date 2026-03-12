@@ -2,6 +2,10 @@
 
 Extension Chrome qui affiche la note Google Maps de chaque praticien directement sur les pages de recherche Doctolib.
 
+[![Disponible sur le Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Installer-blue?logo=googlechrome)](https://chromewebstore.google.com/detail/glhdnckepmnafedonhfdfedefahkldpl)
+
+![Résultats de recherche Doctolib avec les notes Google Maps](screenshots/search-results.jpg)
+
 ## Fonctionnement
 
 Sur les pages de recherche Doctolib un badge s'affiche à droite du nom de chaque praticien avec :
@@ -45,6 +49,8 @@ Cela génère le dossier `dist/` avec les fichiers minifiés.
 ### 4. Configurer la clé API
 
 Au premier lancement, cliquer sur l'icône **Doctolib Avisé** dans la barre d'outils Chrome, saisir la clé API et cliquer **Enregistrer**. La clé est stockée localement dans Chrome et n'est jamais transmise ailleurs.
+
+![Popup de configuration de la clé API](screenshots/popup.jpg)
 
 ## Structure
 
