@@ -94,3 +94,7 @@ Pour rebuild automatiquement à chaque changement :
 ```bash
 npm run watch
 ```
+
+## Licence
+
+MIT © [Lucas Pantanella](https://github.com/naei)
