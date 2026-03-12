@@ -1,0 +1,192 @@
+/* Doctolib Avisé — styles injectés */
+
+/* ----- Bandeau de statut ----- */
+
+#gr-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #fff3cd;
+  border-bottom: 1px solid #ffc107;
+  color: #664d03;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.gr-banner-icon {
+  flex-shrink: 0;
+  color: #e6a817;
+  display: flex;
+  align-items: center;
+}
+
+.gr-banner-text {
+  flex: 1;
+}
+
+.gr-banner-text strong {
+  font-weight: 600;
+}
+
+.gr-banner-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #664d03;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.gr-banner-close:hover {
+  opacity: 1;
+  background: rgba(0,0,0,0.06);
+}
+
+/* Ligne conteneur du badge (sous le nom) */
+.gr-badge-row {
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
+}
+
+/* Badge générique */
+.gr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  text-decoration: none !important;
+  cursor: default;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Badge avec note */
+.gr-badge-rating {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  color: #5f4200;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+  z-index: 11; /* Au-dessus de l'overlay ::after de Doctolib (z-index: 10) */
+}
+
+.gr-badge-rating:hover {
+  background: #fff3cd;
+  border-color: #ffca28;
+}
+
+/* Étoiles */
+.gr-stars {
+  display: inline-flex;
+  gap: 0;
+  font-size: 12px;
+}
+
+.gr-star {
+  display: inline-block;
+  color: #e0e0e0;
+}
+
+.gr-star-full {
+  color: #fbbc04;
+}
+
+.gr-star-empty {
+  color: #e0e0e0;
+}
+
+/* Demi-étoile */
+.gr-star-half {
+  position: relative;
+  color: #e0e0e0;
+}
+
+.gr-star-half-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  overflow: hidden;
+  display: inline-block;
+  color: #fbbc04;
+}
+
+/* Score numérique */
+.gr-score {
+  font-weight: 700;
+  font-size: 11px;
+  color: #5f4200;
+  margin-left: 2px;
+}
+
+/* Nombre d'avis */
+.gr-count {
+  color: #7a6330;
+  font-size: 10px;
+}
+
+/* Icône Maps */
+.gr-maps-icon {
+  color: #1a73e8;
+  margin-left: 1px;
+  flex-shrink: 0;
+}
+
+/* Badge non trouvé */
+.gr-badge-notfound {
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  color: #9e9e9e;
+  font-size: 10px;
+  gap: 3px;
+  cursor: pointer;
+  position: relative;
+  z-index: 11;
+  text-decoration: none !important;
+  transition: background 0.15s, color 0.15s;
+}
+
+.gr-badge-notfound:hover {
+  background: #eeeeee;
+  color: #616161;
+}
+
+/* Badge chargement */
+.gr-badge-loading {
+  background: transparent;
+  border: none;
+  padding: 2px 4px;
+}
+
+/* Spinner */
+.gr-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #e0e0e0;
+  border-top-color: #1a73e8;
+  border-radius: 50%;
+  animation: gr-spin 0.7s linear infinite;
+}
+
+@keyframes gr-spin {
+  to { transform: rotate(360deg); }
+}

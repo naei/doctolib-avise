@@ -1,0 +1,14 @@
+{
+  "name": "doctolib-avise",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch"
+  },
+  "devDependencies": {
+"esbuild": "^0.24.0",
+    "sharp": "^0.33.0"
+  }
+}

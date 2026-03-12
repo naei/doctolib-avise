@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Fond arrondi couleur Doctolib -->
+  <rect width="128" height="128" rx="26" fill="#107aca"/>
+  <!-- Étoile blanche centrée (cx=64, cy=60, R=46, r=20) -->
+  <polygon
+    points="64,14 75.76,43.82 107.75,45.79 83.02,66.18 91.04,97.21 64,80 36.96,97.21 44.98,66.18 20.25,45.79 52.24,43.82"
+    fill="white"
+  />
+</svg>

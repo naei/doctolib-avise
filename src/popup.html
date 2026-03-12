@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      width: 300px;
+      background: #fff;
+      color: #222;
+    }
+    header {
+      background: #107aca;
+      color: white;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    header h1 { font-size: 14px; font-weight: 600; }
+    .content { padding: 16px; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .status.ok  { background: #f0faf4; color: #1a7f4e; }
+    .status.warn { background: #fff8e6; color: #92610a; }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: monospace;
+      outline: none;
+    }
+    input:focus { border-color: #107aca; }
+
+    .btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px;
+      background: #107aca;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btn:hover { background: #0d68ab; }
+    .btn-link {
+      display: block;
+      background: none;
+      color: #107aca;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 8px;
+      padding: 0;
+      width: auto;
+    }
+    .help {
+      display: block;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+      text-decoration: none;
+    }
+    .help:hover { color: #107aca; }
+
+    .success-msg {
+      font-size: 12px;
+      color: #1a7f4e;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .error-msg {
+      font-size: 11px;
+      color: #c0392b;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="white">
+      <polygon points="8,1 9.8,5.8 15,6.1 11.2,9.3 12.5,14.4 8,11.7 3.5,14.4 4.8,9.3 1,6.1 6.2,5.8"/>
+    </svg>
+    <h1>Doctolib Avisé</h1>
+  </header>
+
+  <div class="content">
+    <!-- Clé présente (build ou storage) -->
+    <div id="view-ok" hidden>
+      <div class="status ok">✅ Clé API active</div>
+      <button class="btn-link" id="btn-change">Modifier la clé</button>
+    </div>
+
+    <!-- Formulaire de saisie -->
+    <div id="view-form" hidden>
+<label for="key-input">Clé Google Places API</label>
+      <input id="key-input" type="password" placeholder="AIzaSy...">
+      <p class="error-msg" id="key-error" hidden></p>
+      <button class="btn" id="btn-save">Enregistrer</button>
+      <a class="help" href="https://console.cloud.google.com/apis/credentials" target="_blank">
+        Obtenir une clé sur Google Cloud Console →
+      </a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
