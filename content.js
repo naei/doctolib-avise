@@ -3,9 +3,13 @@
  */
 
 const PROCESSED_ATTR = 'data-gr-processed';
+const EXTENSION_NAME = 'Doctolib Avisé';
 const LOG = () => {};
 
-// ----- Extraction des données -----
+// Localized text from _locales/<lang>/messages.json
+const t = (key, substitutions) => chrome.i18n.getMessage(key, substitutions);
+
+// ----- Data extraction -----
 
 function extractDoctorInfo(card) {
   const nameEl = card.querySelector('h2');
@@ -27,7 +31,7 @@ function extractDoctorInfo(card) {
   return { name, address, specialty };
 }
 
-// ----- Rendu des étoiles -----
+// ----- Star rendering -----
 
 function renderStars(rating) {
   const container = document.createElement('span');
@@ -58,7 +62,7 @@ function formatCount(count) {
   return String(count);
 }
 
-// ----- Helpers SVG -----
+// ----- SVG helpers -----
 
 function makeSvgIcon(viewBox, size, d) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -66,13 +70,14 @@ function makeSvgIcon(viewBox, size, d) {
   svg.setAttribute('width', String(size));
   svg.setAttribute('height', String(size));
   svg.setAttribute('fill', 'currentColor');
+  svg.setAttribute('aria-hidden', 'true');
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   path.setAttribute('d', d);
   svg.appendChild(path);
   return svg;
 }
 
-// ----- Injection des badges -----
+// ----- Badge injection -----
 
 function injectBadge(card, data) {
   const nameEl = card.querySelector('h2');
@@ -111,7 +116,8 @@ function createRatingBadge(data) {
   badge.href = data.mapsUrl;
   badge.target = '_blank';
   badge.rel = 'noopener noreferrer';
-  badge.title = `Voir sur Google Maps (${data.rating}/5 · ${data.totalRatings} avis)`;
+  badge.title = t('badgeRatingTitle', [String(data.rating), String(data.totalRatings)]);
+  badge.setAttribute('aria-label', t('badgeRatingLabel', [data.rating.toFixed(1), String(data.totalRatings)]));
   badge.addEventListener('click', e => e.stopPropagation());
 
   badge.appendChild(renderStars(data.rating));
@@ -149,14 +155,15 @@ function createNotFoundBadge(name, address, errorCode) {
   badge.target = '_blank';
   badge.rel = 'noopener noreferrer';
   badge.title = errorCode
-    ? `Erreur: ${errorCode} — Rechercher sur Google Maps`
-    : 'Non trouvé — Rechercher sur Google Maps';
+    ? t('badgeErrorTitle', [errorCode])
+    : t('badgeNotFoundTitle');
+  badge.setAttribute('aria-label', badge.title);
   badge.addEventListener('click', e => e.stopPropagation());
 
   badge.appendChild(makeSvgIcon('0 0 24 24', 13, 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'));
 
   const text = document.createElement('span');
-  text.textContent = 'Non trouvé';
+  text.textContent = t('badgeNotFound');
   badge.appendChild(text);
 
   badge.appendChild(makeSvgIcon('0 0 24 24', 10, 'M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'));
@@ -167,26 +174,28 @@ function createNotFoundBadge(name, address, errorCode) {
 function createLoadingBadge() {
   const badge = document.createElement('span');
   badge.className = 'gr-badge gr-badge-loading';
+  badge.setAttribute('role', 'progressbar');
+  badge.setAttribute('aria-label', t('badgeLoading'));
   const spinner = document.createElement('span');
   spinner.className = 'gr-spinner';
   badge.appendChild(spinner);
   return badge;
 }
 
-// ----- Bandeau de statut -----
+// ----- Status banner -----
 
 const BANNER_MESSAGES = {
-  NO_API_KEY: {
-    before: "Extension Doctolib Avisé inactive — aucune clé API configurée. Cliquez sur l'icône ",
-    bold: 'Doctolib Avisé',
-    after: ' dans la barre d\'outils Chrome pour la renseigner, puis rechargez la page.',
-  },
-  API_KEY_INVALID: {
-    before: "Extension Doctolib Avisé inactive — clé API invalide ou révoquée. Cliquez sur l'icône ",
-    bold: 'Doctolib Avisé',
-    after: ' dans la barre d\'outils Chrome pour la mettre à jour, puis rechargez la page.',
-  },
+  NO_API_KEY: 'bannerNoKey',
+  API_KEY_INVALID: 'bannerInvalidKey',
 };
+
+// The extension name is rendered in bold, so the sentence is split around it
+function getBannerMessage(type) {
+  const marker = '%NAME%';
+  const key = BANNER_MESSAGES[type] ?? BANNER_MESSAGES.NO_API_KEY;
+  const [before, after = ''] = t(key, [marker]).split(marker);
+  return { before, bold: EXTENSION_NAME, after };
+}
 
 let bannerShown = false;
 
@@ -194,10 +203,11 @@ function showBanner(type) {
   if (bannerShown) return;
   bannerShown = true;
 
-  const msg = BANNER_MESSAGES[type] ?? BANNER_MESSAGES.NO_API_KEY;
+  const msg = getBannerMessage(type);
 
   const banner = document.createElement('div');
   banner.id = 'gr-banner';
+  banner.setAttribute('role', 'status');
 
   const iconSpan = document.createElement('span');
   iconSpan.className = 'gr-banner-icon';
@@ -206,6 +216,7 @@ function showBanner(type) {
   warnSvg.setAttribute('width', '16');
   warnSvg.setAttribute('height', '16');
   warnSvg.setAttribute('fill', 'currentColor');
+  warnSvg.setAttribute('aria-hidden', 'true');
   const warnPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   warnPath.setAttribute('fill-rule', 'evenodd');
   warnPath.setAttribute('d', 'M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z');
@@ -225,7 +236,8 @@ function showBanner(type) {
 
   const closeBtn = document.createElement('button');
   closeBtn.className = 'gr-banner-close';
-  closeBtn.title = 'Fermer';
+  closeBtn.title = t('bannerClose');
+  closeBtn.setAttribute('aria-label', t('bannerClose'));
   closeBtn.textContent = '✕';
   closeBtn.addEventListener('click', () => banner.remove());
   banner.appendChild(closeBtn);
@@ -233,7 +245,7 @@ function showBanner(type) {
   document.body.prepend(banner);
 }
 
-// ----- Traitement d'une carte -----
+// ----- Card processing -----
 
 let extensionActive = true;
 
@@ -274,13 +286,13 @@ async function processCard(card) {
 
     injectBadge(card, data ?? { notFound: true });
   } catch (err) {
-    LOG('ERREUR sendMessage:', err);
+    LOG('sendMessage error:', err);
     loadingRow.remove();
     injectBadge(card, { notFound: true, error: 'SEND_ERROR' });
   }
 }
 
-// ----- Observation du DOM -----
+// ----- DOM observation -----
 
 function scanCards() {
   if (!extensionActive) return;
@@ -300,9 +312,7 @@ const observer = new MutationObserver(() => {
   });
 });
 
-window.addEventListener('unload', () => observer.disconnect());
-
-// ----- Initialisation -----
+// ----- Initialization -----
 
 (async () => {
   const status = await chrome.runtime.sendMessage({ type: 'GET_STATUS' });

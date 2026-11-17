@@ -1,11 +1,12 @@
 {
   "name": "doctolib-avise",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node build.js",
-    "watch": "node build.js --watch"
+    "watch": "node build.js --watch",
+    "zip": "rm -rf dist && npm run build && rm -f doctolib-avise-$npm_package_version.zip && cd dist && zip -r ../doctolib-avise-$npm_package_version.zip . -x '*.DS_Store'"
   },
   "devDependencies": {
 "esbuild": "^0.24.0",

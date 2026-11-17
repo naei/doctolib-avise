@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Doctolib Avisé</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -47,9 +48,8 @@
       border-radius: 6px;
       font-size: 12px;
       font-family: monospace;
-      outline: none;
     }
-    input:focus { border-color: #107aca; }
+    input:focus-visible { outline: 2px solid #107aca; outline-offset: 1px; }
 
     .btn {
       margin-top: 10px;
@@ -101,29 +101,29 @@
 </head>
 <body>
   <header>
-    <svg viewBox="0 0 16 16" width="16" height="16" fill="white">
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="white" aria-hidden="true">
       <polygon points="8,1 9.8,5.8 15,6.1 11.2,9.3 12.5,14.4 8,11.7 3.5,14.4 4.8,9.3 1,6.1 6.2,5.8"/>
     </svg>
     <h1>Doctolib Avisé</h1>
   </header>
 
   <div class="content">
-    <!-- Clé présente (build ou storage) -->
+    <!-- Key already stored -->
     <div id="view-ok" hidden>
-      <div class="status ok">✅ Clé API active</div>
-      <button class="btn-link" id="btn-change">Modifier la clé</button>
+      <div class="status ok" data-i18n="popupKeyActive">✅ API key active</div>
+      <button type="button" class="btn-link" id="btn-change" data-i18n="popupChangeKey">Change key</button>
     </div>
 
-    <!-- Formulaire de saisie -->
-    <div id="view-form" hidden>
-<label for="key-input">Clé Google Places API</label>
-      <input id="key-input" type="password" placeholder="AIzaSy...">
-      <p class="error-msg" id="key-error" hidden></p>
-      <button class="btn" id="btn-save">Enregistrer</button>
-      <a class="help" href="https://console.cloud.google.com/apis/credentials" target="_blank">
-        Obtenir une clé sur Google Cloud Console →
+    <!-- Key entry form -->
+    <form id="view-form" hidden>
+      <label for="key-input" data-i18n="popupKeyLabel">Google Places API key</label>
+      <input id="key-input" name="key" type="password" placeholder="AIzaSy..." aria-describedby="key-error" required>
+      <p class="error-msg" id="key-error" role="alert" hidden></p>
+      <button type="submit" class="btn" id="btn-save" data-i18n="popupSave">Save</button>
+      <a class="help" href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" data-i18n="popupGetKey">
+        Get a key from Google Cloud Console →
       </a>
-    </div>
+    </form>
   </div>
 
   <script src="popup.js"></script>

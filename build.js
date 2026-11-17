@@ -1,5 +1,5 @@
 import { build, context } from 'esbuild';
-import { copyFileSync, mkdirSync, readFileSync } from 'fs';
+import { copyFileSync, cpSync, mkdirSync, readFileSync } from 'fs';
 import sharp from 'sharp';
 
 const isWatch = process.argv.includes('--watch');
@@ -7,17 +7,18 @@ const isWatch = process.argv.includes('--watch');
 mkdirSync('dist', { recursive: true });
 mkdirSync('dist/icons', { recursive: true });
 
-// Fichiers statiques
+// Static files
 copyFileSync('manifest.json', 'dist/manifest.json');
 copyFileSync('content.css', 'dist/content.css');
 copyFileSync('src/popup.html', 'dist/popup.html');
+cpSync('src/_locales', 'dist/_locales', { recursive: true });
 
-// Icônes PNG depuis le SVG source
+// PNG icons from the source SVG
 const svgContent = readFileSync('src/icons/icon.svg');
 for (const size of [16, 48, 128]) {
   await sharp(svgContent).resize(size, size).png().toFile(`dist/icons/icon${size}.png`);
 }
-console.log('🖼️  Icônes générées → dist/icons/');
+console.log('🖼️  Icons generated → dist/icons/');
 
 const buildOptions = {
   entryPoints: [
@@ -33,8 +34,8 @@ const buildOptions = {
 if (isWatch) {
   const ctx = await context(buildOptions);
   await ctx.watch();
-  console.log('👀  Watch mode actif...');
+  console.log('👀  Watch mode active...');
 } else {
   await build(buildOptions);
-  console.log('✅  Build terminé → dist/');
+  console.log('✅  Build done → dist/');
 }

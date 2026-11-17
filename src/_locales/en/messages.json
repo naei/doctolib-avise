@@ -1,0 +1,93 @@
+{
+  "extDescription": {
+    "message": "Shows Google Maps ratings of practitioners on Doctolib.fr"
+  },
+  "htmlLang": {
+    "message": "en"
+  },
+  "popupKeyActive": {
+    "message": "✅ API key active"
+  },
+  "popupChangeKey": {
+    "message": "Change key"
+  },
+  "popupKeyLabel": {
+    "message": "Google Places API key"
+  },
+  "popupSave": {
+    "message": "Save"
+  },
+  "popupChecking": {
+    "message": "Checking…"
+  },
+  "popupGetKey": {
+    "message": "Get a key from Google Cloud Console →"
+  },
+  "popupErrorTimeout": {
+    "message": "Request timed out — check your connection."
+  },
+  "popupErrorNetwork": {
+    "message": "Network error — check your connection."
+  },
+  "popupErrorDenied": {
+    "message": "API key rejected — make sure Places API (New) is enabled and allowed for this key."
+  },
+  "badgeRatingTitle": {
+    "message": "View on Google Maps ($RATING$/5 · $COUNT$ reviews)",
+    "placeholders": {
+      "rating": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeRatingLabel": {
+    "message": "Google Maps rating: $RATING$ out of 5, $COUNT$ reviews",
+    "placeholders": {
+      "rating": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeNotFound": {
+    "message": "Not found"
+  },
+  "badgeNotFoundTitle": {
+    "message": "Not found — Search on Google Maps"
+  },
+  "badgeErrorTitle": {
+    "message": "Error: $CODE$ — Search on Google Maps",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeLoading": {
+    "message": "Loading Google Maps rating"
+  },
+  "bannerNoKey": {
+    "message": "Doctolib Avisé extension inactive — no API key configured. Click the $NAME$ icon in the Chrome toolbar to set it, then reload the page.",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "bannerInvalidKey": {
+    "message": "Doctolib Avisé extension inactive — invalid or revoked API key. Click the $NAME$ icon in the Chrome toolbar to update it, then reload the page.",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "bannerClose": {
+    "message": "Close"
+  }
+}

@@ -1,100 +1,48 @@
 # Doctolib Avisé ⭐️
 
-Extension Chrome qui affiche la note Google Maps de chaque praticien directement sur les pages de recherche Doctolib.
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue?logo=googlechrome)](https://chromewebstore.google.com/detail/glhdnckepmnafedonhfdfedefahkldpl)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-[![Disponible sur le Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Installer-blue?logo=googlechrome)](https://chromewebstore.google.com/detail/glhdnckepmnafedonhfdfedefahkldpl)
+Chrome extension that shows the Google Maps rating of each practitioner directly in Doctolib.fr search results.
 
-![Résultats de recherche Doctolib avec les notes Google Maps](screenshots/search-results.jpg)
+![Doctolib search results with Google Maps ratings](.github/screenshots/search-results.jpg)
 
-## Fonctionnement
+A badge next to each practitioner's name shows the star rating, the score and the number of reviews. Clicking it opens the practitioner's Google Maps page.
 
-Sur les pages de recherche Doctolib un badge s'affiche à droite du nom de chaque praticien avec :
+The interface is available in English and French, following the browser language.
 
-- les étoiles ★ (sur 5)
-- la note numérique
-- le nombre d'avis entre parenthèses
+## Install
 
-Un clic sur le badge ouvre la fiche Google Maps du praticien. Si aucun résultat n'est trouvé, un badge "Non trouvé" s'affiche à la place.
+Install it from the [Chrome Web Store](https://chromewebstore.google.com/detail/glhdnckepmnafedonhfdfedefahkldpl). The extension is unlisted, so it does not show up in store search: use the link.
 
-## Installation
+## Setup
 
-### 1. Prérequis — Clé API Google Places
+The extension needs your own Google Places API key.
 
-L'extension utilise l'[API Places de Google](https://developers.google.com/maps/documentation/places/web-service/text-search) pour récupérer les notes.
+1. Open the [Google Cloud Console](https://console.cloud.google.com/) and create or select a project.
+2. Enable [Places API (New)](https://console.cloud.google.com/apis/library/places.googleapis.com) for that project. If your project already has the legacy **Places API** enabled, that works too.
+3. Create an API key on the [Credentials page](https://console.cloud.google.com/google/maps-apis/credentials). It is strongly recommended to restrict the key to **Places API (New)** under **API restrictions**, so that it cannot be used for anything else.
+4. Click the **Doctolib Avisé** icon in the Chrome toolbar, paste the key and save.
 
-1. Aller sur [Google Cloud Console](https://console.cloud.google.com/)
-2. Créer un projet (ou en sélectionner un existant)
-3. Activer l'**API Places** depuis la bibliothèque d'API
-4. Dans **Identifiants**, créer une **Clé API**
-5. Copier la clé générée
+![API key configuration popup](.github/screenshots/popup.jpg)
 
-> **Coût** : Google offre 200 $/mois de crédit gratuit, ce qui couvre environ 2 000 recherches — largement suffisant pour un usage personnel.
+The key is stored locally in Chrome and is only sent to Google.
 
-### 2. Builder l'extension
+> **Cost**: Google bills API usage to your project, with **1,000 free searches per month** on Places API (New) and 5,000 on the legacy Places API at the time of writing (see the [current pricing](https://developers.google.com/maps/billing-and-pricing/pricing)). Each practitioner shown in the results counts as one search. If you only use the extension for yourself and your family, and you are not a compulsive Doctolib user, that should be plenty.
+
+## Development
+
+To run the extension from source:
 
 ```bash
 npm install
 npm run build
 ```
 
-Cela génère le dossier `dist/` avec les fichiers minifiés.
+Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacked** and select the `dist/` folder.
 
-### 3. Charger l'extension dans Chrome
+Use `npm run watch` to rebuild on every change, and reload the extension from `chrome://extensions` to pick up the new build.
 
-1. Ouvrir `chrome://extensions`
-2. Activer le **Mode développeur** (interrupteur en haut à droite)
-3. Cliquer **Charger l'extension non empaquetée**
-4. Sélectionner le dossier `dist/`
+## License
 
-### 4. Configurer la clé API
-
-Au premier lancement, cliquer sur l'icône **Doctolib Avisé** dans la barre d'outils Chrome, saisir la clé API et cliquer **Enregistrer**. La clé est stockée localement dans Chrome et n'est jamais transmise ailleurs.
-
-![Popup de configuration de la clé API](screenshots/popup.jpg)
-
-## Structure
-
-```
-doctolib-avis/
-├── src/
-│   ├── background.js   — service worker source
-│   ├── popup.js        — logique du popup source
-│   ├── popup.html      — interface du popup
-│   └── icons/
-│       └── icon.svg    — icône source
-├── dist/               — généré par npm run build (ne pas committer)
-│   ├── background.js   — service worker minifié
-│   ├── content.js      — script Doctolib minifié
-│   ├── content.css
-│   ├── popup.html
-│   ├── popup.js        — popup minifié
-│   └── icons/
-│       ├── icon16.png
-│       ├── icon48.png
-│       └── icon128.png
-├── content.js          — script injecté sur Doctolib
-├── content.css         — styles des badges
-├── manifest.json       — configuration de l'extension (Manifest V3)
-├── build.js            — script de build (esbuild + sharp)
-└── package.json
-```
-
-## Mise à jour
-
-Après toute modification des fichiers source, relancer le build puis recharger l'extension :
-
-```bash
-npm run build
-```
-
-Sur `chrome://extensions`, cliquer l'icône de rechargement de l'extension.
-
-Pour rebuild automatiquement à chaque changement :
-
-```bash
-npm run watch
-```
-
-## Licence
-
-MIT © [Lucas Pantanella](https://github.com/naei)
+MIT © 2026 [Lucas Pantanella](https://github.com/naei)

@@ -1,0 +1,93 @@
+{
+  "extDescription": {
+    "message": "Affiche les notes Google Maps des praticiens sur Doctolib.fr"
+  },
+  "htmlLang": {
+    "message": "fr"
+  },
+  "popupKeyActive": {
+    "message": "✅ Clé API active"
+  },
+  "popupChangeKey": {
+    "message": "Modifier la clé"
+  },
+  "popupKeyLabel": {
+    "message": "Clé Google Places API"
+  },
+  "popupSave": {
+    "message": "Enregistrer"
+  },
+  "popupChecking": {
+    "message": "Vérification…"
+  },
+  "popupGetKey": {
+    "message": "Obtenir une clé sur Google Cloud Console →"
+  },
+  "popupErrorTimeout": {
+    "message": "Délai dépassé — vérifiez votre connexion."
+  },
+  "popupErrorNetwork": {
+    "message": "Erreur réseau — vérifiez votre connexion."
+  },
+  "popupErrorDenied": {
+    "message": "Clé API refusée — vérifiez que Places API (New) est activée et autorisée pour cette clé."
+  },
+  "badgeRatingTitle": {
+    "message": "Voir sur Google Maps ($RATING$/5 · $COUNT$ avis)",
+    "placeholders": {
+      "rating": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeRatingLabel": {
+    "message": "Note Google Maps : $RATING$ sur 5, $COUNT$ avis",
+    "placeholders": {
+      "rating": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeNotFound": {
+    "message": "Non trouvé"
+  },
+  "badgeNotFoundTitle": {
+    "message": "Non trouvé — Rechercher sur Google Maps"
+  },
+  "badgeErrorTitle": {
+    "message": "Erreur : $CODE$ — Rechercher sur Google Maps",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeLoading": {
+    "message": "Chargement de la note Google Maps"
+  },
+  "bannerNoKey": {
+    "message": "Extension Doctolib Avisé inactive — aucune clé API configurée. Cliquez sur l'icône $NAME$ dans la barre d'outils Chrome pour la renseigner, puis rechargez la page.",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "bannerInvalidKey": {
+    "message": "Extension Doctolib Avisé inactive — clé API invalide ou révoquée. Cliquez sur l'icône $NAME$ dans la barre d'outils Chrome pour la mettre à jour, puis rechargez la page.",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "bannerClose": {
+    "message": "Fermer"
+  }
+}
